@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        /* Basic styles for body */
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #87CEEB; /* Change this value to any shade of blue you prefer */
+    font-family: 'Arial', sans-serif;
+}
+        /* Container for the timer */
+        .timer-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        /* Style for individual time unit */
+        .time {
+            display: inline-block;
+            margin: 0 15px;
+        }
+
+        /* Style for the time number */
+        .time-number {
+            font-size: 3rem;
+            color: #333333;
+            margin-bottom: 5px;
+        }
+
+        /* Style for the time label */
+        .time-label {
+            font-size: 1rem;
+            color: #999999;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer-container">
+        <div class="time">
+            <div class="time-number" id="days">00</div>
+            <div class="time-label">Days</div>
+        </div>
+        <div class="time">
+            <div class="time-number" id="hours">00</div>
+            <div class="time-label">Hours</div>
+        </div>
+        <div class="time">
+            <div class="time-number" id="minutes">00</div>
+            <div class="time-label">Minutes</div>
+        </div>
+        <div class="time">
+            <div class="time-number" id="seconds">00</div>
+            <div class="time-label">Seconds</div>
+        </div>
+    </div>
+
+    <script>
+        const countDownDate = new Date("Oct 8, 2024 11:00:00").getTime();
+
+        const countdownFunction = setInterval(function () {
+            const now = new Date().getTime();
+
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toLocaleString('en-US', { minimumIntegerDigits: 2 });
+            document.getElementById("hours").innerText = hours.toLocaleString('en-US', { minimumIntegerDigits: 2 });
+            document.getElementById("minutes").innerText = minutes.toLocaleString('en-US', { minimumIntegerDigits: 2 });
+            document.getElementById("seconds").innerText = seconds.toLocaleString('en-US', { minimumIntegerDigits: 2 });
+
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.querySelector(".timer-container").innerHTML = "<h1>EXPIRED</h1>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
